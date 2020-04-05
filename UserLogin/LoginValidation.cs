@@ -6,50 +6,50 @@ namespace UserLogin
     {
         public delegate void ActionOnError(string errorMessage);
 
-        private static string username;
-        public static string currentUserUsername = username;
+        private static string _username;
+        public static string CurrentUserUsername = _username;
 
-        private readonly ActionOnError actionOnError;
+        private readonly ActionOnError _actionOnError;
 
-        private readonly string password;
-        private string error_message;
+        private readonly string _password;
+        private string _errorMessage;
 
         public LoginValidation(string usernameI, string passwordI, ActionOnError actionOnErrorI)
         {
-            username = usernameI;
-            password = passwordI;
-            actionOnError = actionOnErrorI;
+            _username = usernameI;
+            _password = passwordI;
+            _actionOnError = actionOnErrorI;
         }
 
         public static UserRoles CurrentUserRole { get; private set; }
 
         public bool ValidateUserInput(out User userI)
         {
-            if (username.Length < 5)
+            if (_username.Length < 5)
             {
                 userI = null;
-                actionOnError("The entered username is too short");
+                _actionOnError("The entered username is too short");
                 return false;
             }
 
-            if (password.Length < 5)
+            if (_password.Length < 5)
             {
                 userI = null;
-                actionOnError("The entered password is too short");
+                _actionOnError("The entered password is too short");
                 return false;
             }
 
-            userI = UserData.IsUserPassCorrect(username, password);
+            userI = UserData.IsUserPassCorrect(_username, _password);
             if (userI == null)
             {
-                actionOnError("No match found for this password/username combination.");
+                _actionOnError("No match found for this password/username combination.");
                 CurrentUserRole = UserRoles.Anonymous;
                 return false;
             }
 
             CurrentUserRole = (UserRoles) userI.UserRole;
-            error_message = "Login successful.";
-            Console.WriteLine(error_message);
+            _errorMessage = "Login successful.";
+            Console.WriteLine(_errorMessage);
             Logger.LogActivity("Login successful.");
             return true;
         }

@@ -15,9 +15,9 @@ namespace UserLogin
             Expires = DateTime.MaxValue;
         }
 
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string FacNumber { get; set; }
+        public string Username { get; }
+        public string Password { get; }
+        public string FacNumber { get; }
         public int UserRole { get; set; }
         public DateTime Created { get; set; }
         public DateTime Expires { get; set; }

@@ -14,7 +14,6 @@ namespace UserLogin
                 ResetTestUserData();
                 return _testUsers;
             }
-            set { }
         }
 
         private static void ResetTestUserData()
